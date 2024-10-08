@@ -1,0 +1,77 @@
+{% extends 'theme.html' %}
+
+{% block content %}
+<style>
+  /* CSS for product cards */
+
+.card {
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: box-shadow 0.3s;
+}
+
+.card:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+  width: 100%;
+   /* Adjust as needed */
+  object-fit: cover;
+  border-radius: 5px 5px 0 0;
+  position: relative;
+    width: 100%;
+    height: auto;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+.card-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.card-text {
+  font-size: 16px;
+  color: #666;
+}
+
+.btn-primary {
+  background-color: #ba9e00ea;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  background-color: #ba9e00ea;
+}
+
+</style>
+  <center><h2>Products in {{ subcategory.subcategory_name }}</h2></center>
+  <div class="row">
+    {% for product in products %}
+      <div class="col-md-3">
+        <div class="card">
+          
+            <a href="{% url 'product_details' product.id %}">
+              <img src="{{product.image.url}}" class="card-img-top" alt="...">
+            </a>
+          
+          <div class="card-body">
+            <h5 class="card-title">{{ product.name }}</h5>
+            <p class="card-text">Price: ₹{{ product.price }}</p>
+            <a href="{% url 'add_to_cart'%}" class="btn btn-primary">Add to Cart</a>
+            
+            <a href="{% url 'add_to_wishlist' product.id %}" class="btn btn-primary">Add to Wishlist</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

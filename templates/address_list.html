@@ -1,0 +1,114 @@
+{% extends "theme.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Address List</title>
+    <style>
+        /* Basic styling for the address list page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .address-list-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .address-item {
+            border-bottom: 1px solid #ccc;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .address-item:last-child {
+            border-bottom: none;
+        }
+        .address-item .address-info {
+            flex-grow: 1;
+        }
+        .address-item .action-buttons {
+            display: flex;
+            align-items: center;
+        }
+        .address-item .action-buttons button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .address-item .action-buttons button.edit-button {
+            background-color: #ba9e00ea;
+            color: #fff;
+        }
+        .address-item .action-buttons button.edit-button:hover {
+            background-color: #ba9e00ea;
+        }
+        .address-item .action-buttons button.delete-button {
+            background-color: #dc3545;
+            color: #fff;
+        }
+        .address-item .action-buttons button.delete-button:hover {
+            background-color: #c82333;
+        }
+
+        .address-list-container .add-address-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color:  #ba9e00ea;;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.address-list-container .add-address-button:hover {
+    background-color:  #ba9e00ea;;
+}
+
+        
+    </style>
+</head>
+<body>
+    <div class="address-list-container">
+        <h2>Address List</h2>
+        <ul class="address-list">
+            {% for address in addresses %}
+            <li class="address-item">
+                <div class="address-info">
+                    <p><strong>Recipient Name:</strong> {{ address.recepient_name }}</p>
+                    <p><strong>Contact Number:</strong> {{ address.recepient_contact }}</p>
+                    <p><strong>Address:</strong> {{ address.address_line1 }}, {{ address.address_line2 }}, {{ address.city }}, {{ address.state }} - {{ address.postal_code }}</p>
+                    <p><strong>Country:</strong> {{ address.country }}</p>
+                    
+                    
+                </div>
+                
+                <div class="action-buttons">
+                    <a href="{% url 'address_edit' address.id %}"><button class="edit-button">Edit</button></a>
+                    <a href="{% url 'address_delete' address.id %}"><button class="delete-button">Delete</button></a>
+                </div>
+                
+            </li>
+            
+            {% endfor %}
+            <a href="{% url 'address_create' %}">
+                <button class="add-address-button">Add Address</button>
+            </a>
+        </ul>
+    </div>
+</body>
+</html>
+
+
+{% endblock %}

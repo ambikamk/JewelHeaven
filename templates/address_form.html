@@ -1,0 +1,71 @@
+{% extends "theme.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Address Form</title>
+    <style>
+        /* Basic styling for the address form */
+        /* CSS for AddressForm */
+/* CSS for AddressForm */
+.address-form-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.address-form-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.address-form-container label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+.address-form-container input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.address-form-container button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: #ba9e00ea;;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.address-form-container button[type="submit"]:hover {
+    background-color: #ba9e00ea;;
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="address-form-container">
+        <h2>Add/Edit Address</h2>
+        <form method="post">
+            {%csrf_token%}
+            {{form.as_p}}
+            <button type="Submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
+{% endblock %}

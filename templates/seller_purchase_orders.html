@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Orders</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        /* Custom CSS styles */
+        body {
+            background-color: #f0f2f5; /* Soft gray background color */
+            color: #333; /* Darker text color for better readability */
+            font-family: 'Arial', sans-serif; /* Clean and modern font */
+        }
+
+        .navbar {
+            background-color: #007bff; /* Bootstrap primary color */
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .navbar-nav .nav-link {
+            color: #fff !important; /* Ensure text is white */
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #f8f9fa !important; /* Slightly lighter on hover */
+        }
+
+        .user-icon {
+            color: #fff;
+            margin-right: 5px;
+        }
+
+        .table {
+            background-color: #fff; /* White background for table */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            border-radius: 5px; /* Rounded corners */
+        }
+
+        .table thead th {
+            background-color: #007bff; /* Bootstrap primary color */
+            color: #fff; /* White text */
+        }
+
+        .table tbody tr:hover {
+            background-color: #e2e6ea; /* Lighter gray on hover */
+            cursor: pointer; /* Pointer cursor on hover */
+        }
+
+        .table tbody tr {
+            transition: background-color 0.3s ease; /* Smooth transition on hover */
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #007bff;
+            margin-bottom: 2rem;
+            font-weight: bold;
+        }
+
+        .container {
+            padding: 2rem 0;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Your Logo</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-user user-icon"></i>
+                         {% if user.is_authenticated %}
+                            {{ user.username }}
+                         {% else %}
+                            Account
+                         {% endif %}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="text-center mb-5">Purchase Orders</h1>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Order Number</th>
+                            <th>Date</th>
+                            <th>Total Amount</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for purchase_order in purchase_orders %}
+                        {% if purchase_order.Status != 'Not Initiated' and purchase_order.Status != 'Rejected' %}
+                        <tr onclick="window.location='{% url 'purchase_order_details' purchase_order.id %}'">
+                            <td>{{ purchase_order.id }}</td>
+                            <td>{{ purchase_order.PurchaseOrderDate }}</td>
+                            <td>₹{{ purchase_order.TotalAmount }}</td>
+                            <td><a href="{% url 'purchase_order_details' purchase_order.id %}">{{ purchase_order.Status }}</a></td>
+                            <td>
+                                <a href="{% url 'purchase_order_details' purchase_order.id %}">View Details</a>
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

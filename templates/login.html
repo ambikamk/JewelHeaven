@@ -1,0 +1,72 @@
+{% extends 'theme.html' %}
+{% block content %}
+{% load static %}
+
+    <style>
+
+        .login-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 500px;
+            margin-left: 30%;
+            margin-top: 10%;
+        }
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .login-form input {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .login-form button {
+            width: 100%;
+            background-color: #ba9e00ea;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .login-form button:hover {
+            background-color: #ba9e00ea;
+        }
+        .forgot-password,
+        .register {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .forgot-password a,
+        .register a {
+            color:#ba9e00ea;
+            
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form class="login-form" method="post">
+            {% csrf_token %}
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <div class="forgot-password">
+            <a href="{% url 'password_reset' %}">Forgot Password?</a>
+        </div>
+        <div class="register">
+            <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+        </div>
+    </div>
+</body>
+</html>
+
+{% endblock %}

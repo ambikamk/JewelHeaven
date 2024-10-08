@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <style>
+      body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+strong {
+    font-weight: bold;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+table th,
+table td {
+    padding: 13px 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table thead {
+    background-color: #ba9e00ea;
+    color: #fff;
+}
+
+table th {
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+@media (max-width: 700px) {
+    table {
+        font-size: 14px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+}
+
+    </style>
+  
+    <h1>Order Detail</h1>
+    <p><strong>Order ID:</strong> {{ order.id }}</p>
+    <p><strong>Order Date:</strong> {{ order.order_date }}</p>
+    <p><strong>Status:</strong> {{ order.status }}</p>
+    <p><strong>Total Price:</strong> ₹{{ order.total_price }}</p>
+
+    <h2>Order Items</h2>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Total Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for order_item in order.orderitem_set.all %}
+        <tr>
+          <td>{{ order_item.product.name }}</td>
+          <td>{{ order_item.quantity }}</td>
+          <td>₹{{ order_item.total_price }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="3">No items in this order.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+  </html>
